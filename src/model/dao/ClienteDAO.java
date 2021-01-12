@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import connection.ConnectionFactory;
 import model.bean.Cliente;
+import model.bean.Filme;
 
 public class ClienteDAO {
 	
@@ -118,6 +119,25 @@ public class ClienteDAO {
 		} finally {
 			ConnectionFactory.closeConnection(con, stmt);
 		}
+	}
+	
+	public void delete(Cliente c) {
+		Connection con = ConnectionFactory.getConnection();
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = con.prepareStatement("DELETE FROM cliente WHERE idCliente=?");
+			stmt.setInt(1, c.getIdCliente());
+			stmt.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso!");
+			
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao excluir: "+ e);
+			
+		} finally {
+			ConnectionFactory.closeConnection(con, stmt);
+		}
+		
 	}
 	
 	

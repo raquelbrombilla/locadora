@@ -101,6 +101,25 @@ public class JFListarClientes extends JFrame {
 		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir Cliente");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(jtClientes.getSelectedColumn() != -1) {
+					int opcao = JOptionPane.showConfirmDialog(null, "Deseja excluir o cliente selecionado?","Exclusão", JOptionPane.YES_NO_OPTION);
+					
+					if(opcao == 0) {
+						ClienteDAO dao = new ClienteDAO();
+						Cliente c = new Cliente();
+						c.setIdCliente((int) jtClientes.getValueAt(jtClientes.getSelectedRow(), 0));
+						dao.delete(c);
+					}
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecione um cliente!");					
+				}
+				readJTable();	
+			}
+		});
 		btnExcluir.setBounds(303, 335, 137, 23);
 		contentPane.add(btnExcluir);
 		
