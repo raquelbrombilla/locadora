@@ -20,6 +20,8 @@ import model.dao.FilmeDAO;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowEvent;
 
 public class JFListarFilmes extends JFrame {
 
@@ -46,8 +48,15 @@ public class JFListarFilmes extends JFrame {
 	 * Create the frame.
 	 */
 	public JFListarFilmes() {
+		addWindowFocusListener(new WindowFocusListener() {
+			public void windowGainedFocus(WindowEvent arg0) {
+				readJTable();
+			}
+			public void windowLostFocus(WindowEvent arg0) {
+			}
+		});
 		setTitle("Listar Filmes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 625, 432);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,6 +87,12 @@ public class JFListarFilmes extends JFrame {
 		scrollPane.setViewportView(jtFilmes);
 		
 		JButton btnCadastrar = new JButton("Cadastrar Filme");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFCadastrarFilme cf = new JFCadastrarFilme();
+				cf.setVisible(true);
+			}
+		});
 		btnCadastrar.setBounds(10, 338, 130, 23);
 		contentPane.add(btnCadastrar);
 		
@@ -96,7 +111,7 @@ public class JFListarFilmes extends JFrame {
 				readJTable();
 			}
 		});
-		btnAlterar.setBounds(163, 338, 118, 23);
+		btnAlterar.setBounds(167, 338, 118, 23);
 		contentPane.add(btnAlterar);
 		
 		JButton btnExcluir = new JButton("Excluir Filme");
@@ -118,8 +133,17 @@ public class JFListarFilmes extends JFrame {
 				readJTable();	
 			}
 		});
-		btnExcluir.setBounds(301, 338, 130, 23);
+		btnExcluir.setBounds(317, 338, 130, 23);
 		contentPane.add(btnExcluir);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(469, 338, 130, 23);
+		contentPane.add(btnCancelar);
 		
 		readJTable();
 	}
@@ -140,5 +164,4 @@ public class JFListarFilmes extends JFrame {
 				
 		}
 	}
-
 }

@@ -56,7 +56,7 @@ public class JFAtualizarCliente extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblCadastrarCliente = new JLabel("Atualizar Cliente ");
+		JLabel lblCadastrarCliente = new JLabel("Alterar Cliente ");
 		lblCadastrarCliente.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblCadastrarCliente.setBounds(26, 24, 168, 22);
 		contentPane.add(lblCadastrarCliente);
@@ -127,6 +127,7 @@ public class JFAtualizarCliente extends JFrame {
 				c.setCpf(txtCpf.getText());
 				
 				dao.update(c);
+				dispose();
 				
 			}
 		});
@@ -134,12 +135,25 @@ public class JFAtualizarCliente extends JFrame {
 		contentPane.add(btnAlterar);
 		
 		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNome.setText(null);
+				txtEndereco.setText(null);
+				txtTelefone.setText(null);
+				txtCpf.setText(null);	
+			}
+		});
 		btnLimpar.setBounds(151, 242, 89, 23);
 		contentPane.add(btnLimpar);
 		
-		JButton btnExcluir = new JButton("Excluir");
-		btnExcluir.setBounds(267, 242, 89, 23);
-		contentPane.add(btnExcluir);
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(267, 242, 89, 23);
+		contentPane.add(btnCancelar);
 		
 	}
 
